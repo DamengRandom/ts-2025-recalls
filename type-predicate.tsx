@@ -2,7 +2,7 @@
 
 import React from "react";
 
-export type FinalInvoice ={
+export type FinalInvoice = {
   __typename: 'FinalInvoice';
   id: number;
   amount: number;
