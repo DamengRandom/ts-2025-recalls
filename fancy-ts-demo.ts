@@ -89,3 +89,51 @@ const excludeTypeForSquare: ExcludeTypeForSquare = {
   type: 'square',
   side: 10,
 }
+
+
+// 5). Extract Type (again 😂)
+
+type JobProps =
+  | {
+    type: 'developer';
+    skills: string[];
+  }
+  | {
+    type: 'designer';
+    tools: string[];
+  };
+
+type ExtractTypeForDeveloper = Extract<JobProps, { type: 'developer' }>;
+
+const extractTypeForDeveloper: ExtractTypeForDeveloper = {
+  type: 'developer',
+  skills: ['React', 'TypeScript', 'JavaScript'],
+}
+
+
+// 6). Generics Try
+
+type MockAPIResponse<T> = 
+  | {
+    data: T;
+    status: number;
+  }
+  | {
+    error: string;
+    status: number;
+  }
+
+let responseMockOne: MockAPIResponse<{ name: string }> = {
+  data: { name: 'John' },
+  status: 200,
+};
+
+let responseMockTwo: MockAPIResponse<undefined> = { // pass undefined to the generic type also works if no generic type defined ~
+  error: 'Not found',
+  status: 404,
+}
+
+
+// 7). TBD ..
+
+
