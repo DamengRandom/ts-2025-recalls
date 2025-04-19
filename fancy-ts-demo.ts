@@ -111,7 +111,7 @@ const extractTypeForDeveloper: ExtractTypeForDeveloper = {
 }
 
 
-// 6). Generics Try
+// 6). Generics with conditional typesTry
 
 type MockAPIResponse<T> = 
   | {
@@ -135,5 +135,3 @@ let responseMockTwo: MockAPIResponse<undefined> = { // pass undefined to the gen
 
 
 // 7). TBD ..
-
-
