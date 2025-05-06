@@ -429,8 +429,14 @@ type PersonNameWithHobby = PersonName & PersonHobby; // intersection type
 
 you can only assign never to never, you can assign never to any other type, but you cannot assign any other type to never.
 
-function error(message: string): never {
+Use cases: Throw error
+
+function fail(message: string): never {
   throw new Error(message);
+}
+
+function exhaustiveCheck(x: never) {
+  // Will error if called with any real type
 }
 
 const errorMessage: never = error("This is an error message"); // ✅
@@ -471,6 +477,14 @@ logAccess({ name: "John", age: 30 }, "name"); // ✅
 ### Another good tips for type definition
 
 Always check the original provided API documentation to understand the type definitions before starting to define your own type definitions. Please READ the doc carefully. 
+
+
+Any && Unknown && Never
+
+- Any is unsafe, unknown is safe, and never is strictest
+- Cannot assign unknown to anything
+- Cannot anything to never
+
 
 
 ### To be continued ...
