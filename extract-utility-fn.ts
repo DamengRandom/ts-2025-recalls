@@ -48,4 +48,3 @@ const hasOriginWhole = (trip: Trip): trip is TripWithOriginWhole => {
 const finalResult = [tripWithOriginRefExample, tripWithOriginWholeExample].filter(hasOriginRef);
 
 console.log('Only returen the data which has origin ref:', finalResult);
-

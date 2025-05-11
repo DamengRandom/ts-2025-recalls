@@ -483,8 +483,31 @@ Any && Unknown && Never
 
 - Any is unsafe, unknown is safe, and never is strictest
 - Cannot assign unknown to anything
-- Cannot anything to never
+- Cannot assign anything to never
 
 
+### Type vs Interface
+
+Feature	interface	type
+Extending	                    ✅ Yes (extends)	              ✅ Yes (via unions & intersections &)
+Merging (declaration merging)	✅ Yes (interfaces auto-merge)	❌ No (types can't merge)
+Unions / Primitives	          ❌ No	                        ✅ Yes (string | number)
+Recommended for	              Objects & classes	             Anything (primitives, unions, objects)
+
+Example:
+
+```ts
+interface User {
+  id: number;
+}
+
+interface User {
+  name: string;
+}
+
+// Merged result:
+const user: User = { id: 1, name: "Alice" };
+// See, auto merged ~
+```
 
 ### To be continued ...
