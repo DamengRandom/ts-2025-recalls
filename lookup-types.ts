@@ -17,6 +17,7 @@ type Route = {
 type Origin = Route['origin']; // this is a lookup[type]
 type Destination = Route['destination']; // this is a lookup[type]
 
+// Example of how to use the lookup types:
 const tripOrigin: Origin = {
   city: 'New York',
   state: 'NY',

@@ -460,7 +460,7 @@ const unknownValue: unknown = "This is an unknown value"; // ✅
 const unknownValue2: unknown = 123; // ✅
 
 
-### keyof operator in TS (MUST REMEMBER THIS !!!!)
+### `keyof` operator in TS (MUST REMEMBER THIS !!!!)
 
 type TPerson = {
   name: string;
@@ -509,5 +509,36 @@ interface User {
 const user: User = { id: 1, name: "Alice" };
 // See, auto merged ~
 ```
+
+### .d.ts file
+
+.d.ts file is a file that contains the type definitions for the JavaScript code.
+
+
+### TypeScript `infer` operator
+
+The `infer` operator is a way to infer the type of a variable.
+
+eg:
+
+```ts
+type PromiseType<T> = T extends Promise<infer U> ? U : never;
+// Another example:
+type ReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
+```
+
+### How to avoid using any?
+
+- Use `unknown`, type guards or generics ..
+
+### What is `strictNullChecks`?
+
+`strictNullChecks` is a compiler option that enables strict null checks, after enabled, all null and undefined cases need to be handled properly
+
+
+### How to debug ts code?
+
+enable `sourceMap` in tsconfig.json, then use `ts-node-dev` to debug ts code.
+
 
 ### To be continued ...

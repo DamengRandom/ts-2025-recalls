@@ -19,6 +19,7 @@ const printPlainText = (doc: PlainTextDocument) => {};
 
 // Good
 
+// Example of how to use the guard by using 'in' operator !!!!!!!!!
 const printDocument = (doc: DeliminatedDocument | PlainTextDocument) => {
   if ("delimiter" in doc) { // This is a guard  by using 'in' operator !!!!!!!!!
     printDeliminated(doc); // ✅
@@ -26,4 +27,3 @@ const printDocument = (doc: DeliminatedDocument | PlainTextDocument) => {
     printPlainText(doc); // ✅
   }
 };
-

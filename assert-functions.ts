@@ -4,7 +4,7 @@ function assertIsNumber(val: any): asserts val is number {
   }
 }
 
-function double(input: any) {
+function double(input: unknown) {
   assertIsNumber(input); // will throw an error if the input is not a number
   return input * 2;
 }

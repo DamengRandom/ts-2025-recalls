@@ -17,7 +17,6 @@ type TripWithOriginRef = Extract<Trip, { originUuid: string }>;
 type TripWithOriginWhole = Extract<Trip, { origin: { uuid: string }}>;
 
 // Some data examples after extracting (Practical usage ~)
-
 const tripWithOriginRefExample: TripWithOriginRef = {
   originUuid: '123',
 }
