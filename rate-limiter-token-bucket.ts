@@ -1,13 +1,13 @@
 class TokenBucketRateLimiter {
-  private capacity: number; // max number of tokens in the bucket
-  private refillRate: number; // tokens added per second
-  private tokens: Map<string, number>;
+  private capacity: number;
+  private refillRate: number;
+  private tokensAmount: Map<string, number>;
   private lastRefill: Map<string, number>;
 
   constructor(capacity: number, refillRatePerSecond: number) {
     this.capacity = capacity;
     this.refillRate = refillRatePerSecond;
-    this.tokens = new Map();
+    this.tokensAmount = new Map();
     this.lastRefill = new Map();
   }
 
@@ -16,35 +16,39 @@ class TokenBucketRateLimiter {
     const last = this.lastRefill.get(key) || now;
     const elapsedSeconds = (now - last) / 1000;
     const tokensToAdd = elapsedSeconds * this.refillRate;
-    const currentTokens = Math.min(this.capacity, (this.tokens.get(key) || this.capacity) + tokensToAdd);
+    const currentTokensAmount = Math.min(this.capacity, (this.tokensAmount.get(key) || this.capacity) + tokensToAdd);
 
-    this.tokens.set(key, currentTokens);
+    this.tokensAmount.set(key, currentTokensAmount);
     this.lastRefill.set(key, now);
-  }
+  };
 
   allowRequest(key: string): boolean {
     this.refill(key);
 
-    const availableTokens = this.tokens.get(key) || 0;
+    const availableTokensAmount = this.tokensAmount.get(key) || 0;
 
-    if (availableTokens < 1) {
-      return false;
-    }
+    if (availableTokensAmount < 1) return false;
 
-    this.tokens.set(key, availableTokens - 1);
+    this.tokensAmount.set(key, availableTokensAmount - 1);
 
     return true;
   };
+
+  resetLimiter() {
+    this.tokensAmount.clear();
+    this.lastRefill.clear();
+  }
 }
 
-function caller() {
-  const limiter = new TokenBucketRateLimiter(5, 1); // capacity = 5 (max 5 tokens in the bucket), refill = 1 token / per sec
-  const userKey = "user456";
+function caller(key: string) {
+  const limiter = new TokenBucketRateLimiter(3, 1); // capacity: 5, refillRate: 1 per second
+  
+  limiter.resetLimiter();
 
   setInterval(() => {
-    const allowedRequests = limiter.allowRequest(userKey);
-    console.log(`Request: ${allowedRequests ? 'Allowed' : 'Rate Limited'}`);
+    const isAllowed = limiter.allowRequest(key);
+    console.log(`Request ${new Date().toISOString()}: ${isAllowed ? "allowed" : "denied"}`);
   }, 300);
-};
+}
 
-caller();
+caller("user1");
